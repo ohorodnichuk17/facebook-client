@@ -1,0 +1,22 @@
+body {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.auth-pages-img {
+    width: 400px;
+}
+
+.auth-pages-flex {
+    gap: 50px;
+}
+
+@media (max-width:748px) {
+    .auth-pages-img {
+        width: 80vw;
+    }
+
+    .auth-pages-flex {
+        gap: 2vw;
+    }
+}

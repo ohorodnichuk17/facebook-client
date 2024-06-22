@@ -1,0 +1,38 @@
+:where(.css-dev-only-do-not-override-2lebfw).ant-card .ant-card-body {
+    padding: 0px;
+}
+
+:where(.css-dev-only-do-not-override-2lebfw).ant-btn.ant-btn-icon-only {
+    top: 50px;
+    right: 20px;
+}
+
+:where(.css-dev-only-do-not-override-2lebfw).ant-menu-light.ant-menu-horizontal >.ant-menu-item-selected, :where(.css-dev-only-do-not-override-2lebfw).ant-menu-light>.ant-menu.ant-menu-horizontal >.ant-menu-item-selected, :where(.css-dev-only-do-not-override-2lebfw).ant-menu-light.ant-menu-horizontal >.ant-menu-submenu-selected, :where(.css-dev-only-do-not-override-2lebfw).ant-menu-light>.ant-menu.ant-menu-horizontal >.ant-menu-submenu-selected {
+    color: #FF7F50;
+}
+
+:where(.css-dev-only-do-not-override-2lebfw).ant-menu-light.ant-menu-horizontal >.ant-menu-item-selected::after {
+    border-bottom-color: #FF7F50;
+}
+
+:where(.css-dev-only-do-not-override-2lebfw).ant-menu-light.ant-menu-horizontal >.ant-menu-item:hover::after {
+    border-bottom-color: #FF7F50;
+}
+
+.ant-col.ant-col-xs-24.ant-col-sm-24.ant-col-md-16.ant-col-lg-16.ant-col-xl-16.css-dev-only-do-not-override-2lebfw {
+    text-align: right;
+}
+
+@media (max-width: 768px) {
+    :where(.css-dev-only-do-not-override-2lebfw).ant-row [class^="ant-row"], :where(.css-dev-only-do-not-override-2lebfw).ant-row [class*=" ant-row"] > ul > li {
+        font-size: 14px;
+    }
+
+    .ant-col.ant-col-xs-24.ant-col-sm-24.ant-col-md-8.ant-col-lg-8.ant-col-xl-8.css-dev-only-do-not-override-2lebfw {
+        text-align: center;
+    }
+
+    .ant-col.ant-col-xs-24.ant-col-sm-24.ant-col-md-16.ant-col-lg-16.ant-col-xl-16.css-dev-only-do-not-override-2lebfw {
+        text-align: center;
+    }
+}
