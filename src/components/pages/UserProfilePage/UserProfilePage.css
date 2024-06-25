@@ -1,3 +1,78 @@
+.custom-select {
+width: 100%;
+border-radius: 4px;
+padding: 8px;
+border: 1px solid #d9d9d9;
+box-shadow: none;
+transition: all 0.3s;
+}
+
+.custom-select:focus {
+border-color: #ff7f50;
+box-shadow: 0 0 0 2px rgba(255, 127, 80, 0.2);
+}
+
+.custom-select .ant-select-selector {
+border: none;
+box-shadow: none;
+}
+
+.custom-select .ant-select-arrow {
+color: #ff7f50;
+}
+
+.custom-select .ant-select-selection-item {
+font-size: 16px;
+line-height: 24px;
+}
+
+/* General styles */
+.ant-modal {
+top: 20px;
+}
+
+.ant-form-item-label > label {
+font-weight: bold;
+}
+
+.ant-upload-list {
+display: none;
+}
+
+.ant-divider-horizontal {
+margin: 0;
+}
+
+.edit-profile-modal .ant-modal-content {
+border-radius: 10px;
+overflow: hidden;
+}
+
+.edit-profile-modal .ant-modal-header {
+background: #ff7f50;
+}
+
+.edit-profile-modal .ant-modal-title {
+color: white;
+}
+
+.edit-profile-modal .ant-modal-footer {
+display: flex;
+justify-content: center;
+border-top: none;
+}
+
+.edit-profile-modal .ant-modal-footer .ant-btn-primary {
+background-color: #ff7f50;
+border-color: #ff7f50;
+}
+
+.edit-profile-modal .ant-modal-footer .ant-btn-primary:hover {
+background-color: #d96b42;
+border-color: #d96b42;
+}
+  
+
 :where(.css-dev-only-do-not-override-2lebfw).ant-card .ant-card-body {
     padding: 0px;
 }

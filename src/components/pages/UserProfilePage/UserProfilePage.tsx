@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Avatar, Button, Card, Divider, Menu, Row, Col, Typography, Upload, Dropdown, Input, Switch, GetProp, Modal, Form, Select } from 'antd';
-import { UploadChangeParam, UploadFile, UploadProps } from 'antd/es/upload/interface';
+import { Avatar, Button, Card, Divider, Menu, Row, Col, Typography, Upload, Dropdown, Input, Switch, Modal, Form, Select, GetProp, UploadProps } from 'antd';
 import { CameraOutlined, DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
 import './UserProfilePage.css';
@@ -8,13 +7,17 @@ import { useAppSelector } from '../../../hooks/redux';
 import { IUploadedFile, IUserProfile, IUserProfileEditModel } from './types';
 import axios from 'axios';
 import { APP_ENV } from '../../../env';
+import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
 
 import cameraPng from '../../../assets/profile/camera.png';
 import avatarPng from '../../../assets/authentication/avatar.png';
 import editPng from '../../../assets/profile/edit.png';
 import imagePng from '../../../assets/profile/edit.png';
+import { UploadChangeParam } from 'antd/es/upload';
 
 const { TextArea } = Input;
+
+type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
 
 const formConfig = {
   aboutMe: {
@@ -24,35 +27,6 @@ const formConfig = {
   },
   fields: [
     {
-      label: "Country",
-      type: "select",
-      defaultValue: "do not specify",
-      options: [
-        "do not specify",
-        "USA",
-        "Canada",
-        // Add more options as needed
-      ],
-    },
-    {
-      label: "Region",
-      type: "select",
-      defaultValue: "do not specify",
-      options: [
-        "do not specify",
-        // Add region options
-      ],
-    },
-    {
-      label: "City",
-      type: "select",
-      defaultValue: "do not specify",
-      options: [
-        "do not specify",
-        // Add city options
-      ],
-    },
-    {
       label: "Pronouns",
       type: "select",
       defaultValue: "do not specify",
@@ -61,13 +35,10 @@ const formConfig = {
         "he/him",
         "she/her",
         "they/them",
-        // Add more options as needed
       ],
     },
   ],
 };
-
-type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
 
 const CoverButton = styled(Button)`
   background-color: white;
@@ -121,6 +92,8 @@ const UserProfilePage: React.FC = () => {
   const [userProfile, setUserProfile] = useState<IUserProfile | null>(null);
   const { isLogin, user } = useAppSelector(state => state.account);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [country, setCountry] = useState('');
+  const [region, setRegion] = useState('');
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -137,13 +110,13 @@ const UserProfilePage: React.FC = () => {
   useEffect(() => {
     setAvatar(APP_ENV.BASE_URL + user?.avatar);
     if (user?.id) {
-    axios.get(`http://localhost:5181/api/UserProfile/get-profile-by-id/${user.id}`)
-      .then(response => {
-        setUserProfile(response.data);
-      })
-      .catch(error => {
-        console.error("There was an error fetching the user data!", error);
-      });
+      axios.get(`http://localhost:5181/api/UserProfile/get-profile-by-id/${user.id}`)
+        .then(response => {
+          setUserProfile(response.data);
+        })
+        .catch(error => {
+          console.error("There was an error fetching the user data!", error);
+        });
     }
     if (user?.avatar == "/images/avatars/") {
       setAvatar(avatarPng);
@@ -151,7 +124,7 @@ const UserProfilePage: React.FC = () => {
   }, [user?.id]);
 
   useEffect(() => {
-    if(userProfile?.coverPhoto !== "") {
+    if (userProfile?.coverPhoto !== "") {
       setCoverPhoto(APP_ENV.BASE_URL + "/images/coverPhotos/" + userProfile?.coverPhoto);
     }
     else {
@@ -211,13 +184,15 @@ const UserProfilePage: React.FC = () => {
           <span>Add new avatar</span>
         </Menu.Item>
       </Upload>
-      <Menu.Item key="2" icon={<DeleteOutlined />} onClick={() => 
-        {if (user?.avatar == "/images/avatars/") {
+      <Menu.Item key="2" icon={<DeleteOutlined />} onClick={() => {
+        if (user?.avatar == "/images/avatars/") {
           setAvatar(avatarPng);
         }
         else {
-          setAvatar(APP_ENV.BASE_URL + user?.avatar)}}}
-        >
+          setAvatar(APP_ENV.BASE_URL + user?.avatar)
+        }
+      }}
+      >
         Delete avatar
       </Menu.Item>
     </Menu>
@@ -362,6 +337,21 @@ const UserProfilePage: React.FC = () => {
                       <Form.Item name="biography" label={formConfig.aboutMe.label}>
                         <TextArea rows={4} placeholder={formConfig.aboutMe.placeholder} />
                       </Form.Item>
+                      <Form.Item name="country" label="Country">
+                        <CountryDropdown
+                          value={country}
+                          onChange={(val) => setCountry(val)}
+                          classes="ant-select custom-select"
+                        />
+                      </Form.Item>
+                      <Form.Item name="region" label="Region">
+                        <RegionDropdown
+                          country={country}
+                          value={region}
+                          onChange={(val) => setRegion(val)}
+                          classes="ant-select custom-select"
+                        />
+                      </Form.Item>
                       {formConfig.fields.map((field, index) => (
                         <Form.Item name={field.label.toLowerCase()} key={index} label={field.label}>
                           {field.type === "select" && (
@@ -408,3 +398,4 @@ const UserProfilePage: React.FC = () => {
 };
 
 export default UserProfilePage;
+
